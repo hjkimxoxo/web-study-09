@@ -10,4 +10,6 @@ INSERT ALL
 SELECT name, userid, pwd, email, phone, admin, joindate FROM MEMBER;
 
 SELECT PWD FROM MEMBER WHERE USERID='SOMI';
-	
+
+SELECT name, userid, pwd, email, phone, admin, joindate FROM MEMBER
+WHERE userid = 'somi' AND pwd = '1234';

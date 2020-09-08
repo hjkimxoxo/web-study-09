@@ -30,31 +30,38 @@ public class LoginController extends HttpServlet {
 	    String url = "member/login.jsp";
 	    
 	    if (request.getMethod().equalsIgnoreCase("get")) {
+	    	
+	    	HttpSession session = request.getSession();
+		    if(session.getAttribute("loginUser") != null){
+		    	url = "main.jsp";
+		    }
 	        request.getRequestDispatcher(url).forward(request, response);
-	    }
 	    
-	    String userId = request.getParameter("userId");
-	    String pwd = request.getParameter("pwd");
-	    System.out.println("userId " + userId + " pwd " + pwd);
-	    
-	    Member findMember = new Member(userId);
-	    Member resMember = service.getMember(findMember);
-	    
-	    if (resMember == null) {
-	        request.setAttribute("message", "존재하지 않는 회원입니다");
 	    }else {
-	        if (pwd.equals(resMember.getPwd())) {
-	            HttpSession session = request.getSession();
-	            session.setAttribute("loginUser", resMember);
-	            session.setMaxInactiveInterval(60*60);
-	            request.setAttribute("message", "회원 가입에 성공했습니다");
-	            url = "main.jsp";
-	        }else {
-	            request.setAttribute("message", "비밀번호가 맞지 않습니다.");
-	        }
+		    
+		    String userId = request.getParameter("userId");
+		    String pwd = request.getParameter("pwd");
+		    System.out.println("userId " + userId + " pwd " + pwd);
+		    
+		    Member findMember = new Member(userId);
+		    Member resMember = service.getMember(findMember);
+		    
+		    if (resMember == null) {
+		        request.setAttribute("message", "존재하지 않는 회원입니다");
+		    }else {
+		        if (pwd.equals(resMember.getPwd())) {
+		            HttpSession session = request.getSession();
+		            session.setAttribute("loginUser", resMember);
+		            session.setMaxInactiveInterval(60*60);
+		            request.setAttribute("message", "회원 가입에 성공했습니다");
+		            url = "main.jsp";
+		        }else {
+		            request.setAttribute("message", "비밀번호가 맞지 않습니다.");
+		        }
+		    }
+		    request.getRequestDispatcher(url).forward(request, response);
 	    }
-	    request.getRequestDispatcher(url).forward(request, response);
-    }
+	}
 }
 
 

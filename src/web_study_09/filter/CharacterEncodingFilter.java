@@ -30,7 +30,8 @@ public class CharacterEncodingFilter implements Filter {
 
 	
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		System.out.println("doFilter()");
+
+		System.out.println("CharcterEncodingFilter - doFilter()");
 		//내꺼
 		request.setCharacterEncoding(enc);
 		//그다음꺼
